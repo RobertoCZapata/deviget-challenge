@@ -10,7 +10,9 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import CommentIcon from "@material-ui/icons/Comment";
+import SpeakerNotesOffIcon from "@material-ui/icons/SpeakerNotesOff";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from "moment";
@@ -68,12 +70,11 @@ export const ItemCard = ({ data = {} }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="add comments">
+          <CommentIcon />
+          {data.num_comments}
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        {data.visited ? <DoneAllIcon /> : <SpeakerNotesOffIcon />}
       </CardActions>
     </Card>
   );
