@@ -1,8 +1,8 @@
 import React from "react";
-import ItemList from "./components/ItemList";
+import Container from "./components/Container";
 
 function App() {
-  return <ItemList />;
+	return <Container />;
 }
 
 export default App;
