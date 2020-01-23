@@ -1,30 +1,37 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { ItemCard } from "../ItemCard";
+import { connect } from "react-redux";
+import { getItems } from "../../actions/itemListActions";
 
 class ItemList extends Component {
-  state = {
-    items: []
-  };
+	static mapStateToProps = state => {
+		return {
+			items: state.items.items
+		};
+	};
 
-  componentDidMount = () => {
-    axios.get("https://www.reddit.com/top/.json?limit=50").then(response => {
-      console.log(response);
-      this.setState({
-        items: response.data.data.children
-      });
-    });
-  };
+	static mapDispatchToProps = dispatch => {
+		return {
+			fetchItems: () => dispatch(getItems())
+		};
+	};
 
-  render() {
-    return (
-      <div>
-        {this.state.items.map((item, key) => (
-          <ItemCard {...item} key={key.toString()} />
-        ))}
-      </div>
-    );
-  }
+	componentDidMount = () => {
+		this.props.fetchItems();
+	};
+
+	render() {
+		return (
+			<div>
+				{this.props.items.map((item, key) => (
+					<ItemCard {...item} key={key.toString()} />
+				))}
+			</div>
+		);
+	}
 }
 
-export default ItemList;
+export default connect(
+	ItemList.mapStateToProps,
+	ItemList.mapDispatchToProps
+)(ItemList);
