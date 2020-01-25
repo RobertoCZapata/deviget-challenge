@@ -1,9 +1,10 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import ItemList from "../ItemList";
 import NavBar from "../NavBar";
+import { Router } from "@reach/router";
+import ItemDetail from "../Detail";
 
 export default function SimpleContainer() {
 	return (
@@ -11,11 +12,10 @@ export default function SimpleContainer() {
 			<CssBaseline />
 			<Container maxWidth="sm">
 				<NavBar />
-				<ItemList />
-				<Typography
-					component="div"
-					style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
-				/>
+				<Router>
+					<ItemList path="/" />
+					<ItemDetail path="/detail/:itemId" />
+				</Router>
 			</Container>
 		</React.Fragment>
 	);

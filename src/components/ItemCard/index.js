@@ -14,6 +14,7 @@ import SpeakerNotesOffIcon from "@material-ui/icons/SpeakerNotesOff";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from "moment";
+import { Link } from "@reach/router";
 
 const useStyles = makeStyles(theme => ({
 	card: {
@@ -41,40 +42,45 @@ const useStyles = makeStyles(theme => ({
 
 export const ItemCard = ({ data = {} }) => {
 	const classes = useStyles();
-	console.log(data);
+
 	return (
-		<Card className={classes.card}>
-			<CardHeader
-				avatar={
-					<Avatar aria-label="recipe" className={classes.avatar}>
-						R
-					</Avatar>
-				}
-				action={
-					<IconButton aria-label="settings">
-						<MoreVertIcon />
+		<Link to={`/detail/${data.id}`}>
+			<Card className={classes.card}>
+				<CardHeader
+					avatar={
+						<Avatar aria-label="recipe" className={classes.avatar}>
+							R
+						</Avatar>
+					}
+					action={
+						<IconButton aria-label="settings">
+							<MoreVertIcon />
+						</IconButton>
+					}
+					title={data.title}
+					subheader={moment.unix(data.created).fromNow()}
+				/>
+				{data.thumbnail ? (
+					<CardMedia
+						className={classes.media}
+						image={data.thumbnail}
+						title="Paella dish"
+					/>
+				) : null}
+
+				<CardContent>
+					<Typography variant="body2" color="textSecondary" component="p">
+						Autor: {data.author}
+					</Typography>
+				</CardContent>
+				<CardActions disableSpacing>
+					<IconButton aria-label="add comments">
+						<CommentIcon />
+						{data.num_comments}
 					</IconButton>
-				}
-				title={data.title}
-				subheader={moment.unix(data.created).fromNow()}
-			/>
-			<CardMedia
-				className={classes.media}
-				image={data.thumbnail}
-				title="Paella dish"
-			/>
-			<CardContent>
-				<Typography variant="body2" color="textSecondary" component="p">
-					Autor: {data.author}
-				</Typography>
-			</CardContent>
-			<CardActions disableSpacing>
-				<IconButton aria-label="add comments">
-					<CommentIcon />
-					{data.num_comments}
-				</IconButton>
-				{data.visited ? <DoneAllIcon /> : <SpeakerNotesOffIcon />}
-			</CardActions>
-		</Card>
+					{data.visited ? <DoneAllIcon /> : <SpeakerNotesOffIcon />}
+				</CardActions>
+			</Card>
+		</Link>
 	);
 };

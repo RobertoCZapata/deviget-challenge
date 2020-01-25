@@ -30,7 +30,7 @@ export function getItems() {
 
 		try {
 			const payload = await axios.get(
-				"https://www.reddit.com/top/.json?limit=50"
+				"https://www.reddit.com/top/.json?limit=50&q=dogs"
 			);
 
 			const {

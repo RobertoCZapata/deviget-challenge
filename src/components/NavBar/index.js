@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 
+import { useDispatch } from "react-redux";
+import { getItemsSearch } from "../../actions/searchActions";
+
 const useStyles = makeStyles(theme => ({
 	grow: {
 		flexGrow: 1
@@ -67,8 +70,16 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function PrimarySearchAppBar() {
+const PrimarySearchAppBar = () => {
 	const classes = useStyles();
+
+	const dispatch = useDispatch();
+
+	const searchItems = query => dispatch(getItemsSearch(query));
+
+	const handleChange = e => {
+		searchItems(e.target.value);
+	};
 
 	return (
 		<div className={classes.grow}>
@@ -94,6 +105,7 @@ export default function PrimarySearchAppBar() {
 								input: classes.inputInput
 							}}
 							inputProps={{ "aria-label": "search" }}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className={classes.grow} />
@@ -103,4 +115,6 @@ export default function PrimarySearchAppBar() {
 			</AppBar>
 		</div>
 	);
-}
+};
+
+export default PrimarySearchAppBar;
