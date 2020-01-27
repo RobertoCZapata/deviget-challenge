@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ItemCard } from "../ItemCard";
+import ItemCard from "../ItemCard";
 import { getItem } from "../../actions/itemDetailActions";
 import { useDispatch, useSelector } from "react-redux";
 

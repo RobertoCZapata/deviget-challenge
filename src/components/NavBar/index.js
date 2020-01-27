@@ -92,7 +92,9 @@ const PrimarySearchAppBar = () => {
 						aria-label="open drawer"
 					></IconButton>
 					<Typography className={classes.title} variant="h6" noWrap>
-						Deviget-Challenge
+						<a className="decoration-link" href="/">
+							Deviget-Challenge
+						</a>
 					</Typography>
 					<div className={classes.search}>
 						<div className={classes.searchIcon}>
