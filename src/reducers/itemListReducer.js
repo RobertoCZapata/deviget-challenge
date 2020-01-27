@@ -1,6 +1,7 @@
 import {
 	FETCH_ITEMS_SUCCESS,
-	FETCH_ITEMS_ERROR
+	FETCH_ITEMS_ERROR,
+	DELETE_ITEM
 } from "../actions/itemListActions";
 
 import {
@@ -15,7 +16,7 @@ import {
 
 const initialState = {
 	items: [],
-	itemSelected: null
+	itemSelected: []
 };
 
 export default function(state = initialState, action) {
@@ -27,6 +28,7 @@ export default function(state = initialState, action) {
 				items: action.payload
 			};
 		}
+
 		case SEARCH_ITEMS_ERROR:
 		case FETCH_ITEMS_ERROR: {
 			return {
@@ -35,14 +37,22 @@ export default function(state = initialState, action) {
 				error: action.error
 			};
 		}
-
 		case FETCH_ITEM_SUCCESS: {
 			return {
 				...state,
-				itemSelected: action.payload
+				itemSelected: action.payload.map(item => {
+					const itemData = {
+						...item.data,
+						visited: true
+					};
+
+					return {
+						kind: item.kind,
+						data: itemData
+					};
+				})
 			};
 		}
-
 		case FETCH_ITEM_ERROR: {
 			return {
 				...state,
@@ -50,7 +60,14 @@ export default function(state = initialState, action) {
 				error: action.error
 			};
 		}
-
+		case DELETE_ITEM: {
+			return {
+				...state,
+				items: state.items.filter(item => {
+					return item.data.id !== action.payload;
+				})
+			};
+		}
 		default:
 			return state;
 	}

@@ -13,8 +13,6 @@ const ItemDetail = ({ itemId }) => {
 
 	const item = useSelector(state => state.items.itemSelected);
 
-	console.log(item);
-
 	if (item && item.length > 0) {
 		const itemSelected = item[0];
 

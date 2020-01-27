@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -7,16 +7,19 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import CommentIcon from "@material-ui/icons/Comment";
 import SpeakerNotesOffIcon from "@material-ui/icons/SpeakerNotesOff";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Fade from "@material-ui/core/Fade";
 import moment from "moment";
 import { Link } from "@reach/router";
 import { useNearScreen } from "../../hooks/useNearScreen";
+import { useDispatch } from "react-redux";
+
+import { eraseItem } from "../../actions/itemListActions";
 
 const useStyles = makeStyles(theme => ({
 	card: {
@@ -47,29 +50,36 @@ const ItemCard = ({ data = {} }) => {
 
 	const [show, element] = useNearScreen();
 
+	const dispatch = useDispatch();
+
+	const handleDelete = itemId => {
+		dispatch(eraseItem(itemId));
+	};
+
 	return (
 		<article className="item-card-container" ref={element}>
 			{show && (
 				<Fade in={show} timeout={1000}>
 					<Card className={classes.card}>
-						<Link to={`/detail/${data.id}`}>
-							<CardHeader
-								avatar={
-									<Avatar aria-label="recipe" className={classes.avatar}>
-										R
-									</Avatar>
-								}
-								action={
-									<IconButton aria-label="settings">
-										<MoreVertIcon />
-									</IconButton>
-								}
-								title={data.title}
-								subheader={moment.unix(data.created).fromNow()}
-							/>
-						</Link>
+						<CardHeader
+							avatar={
+								<Avatar aria-label="recipe" className={classes.avatar}>
+									R
+								</Avatar>
+							}
+							title={<Link to={`/detail/${data.id}`}>{data.title}</Link>}
+							subheader={moment.unix(data.created).fromNow()}
+							action={
+								<IconButton
+									aria-label="delete"
+									onClick={() => handleDelete(data.id)}
+								>
+									<DeleteIcon />
+								</IconButton>
+							}
+						/>
 
-						{data.thumbnail ? (
+						{data.thumbnail && data.thumbnail.startsWith("http") ? (
 							<CardMedia className={classes.media} image={data.thumbnail} />
 						) : null}
 
@@ -78,12 +88,18 @@ const ItemCard = ({ data = {} }) => {
 								Autor: {data.author}
 							</Typography>
 						</CardContent>
-						<CardActions disableSpacing>
+						<CardActions>
 							<IconButton aria-label="add comments">
 								<CommentIcon />
 								{data.num_comments}
 							</IconButton>
-							{data.visited ? <DoneAllIcon /> : <SpeakerNotesOffIcon />}
+							<IconButton aria-label="read unread icon">
+								{data.visited ? (
+									<DoneAllIcon aria-label="read" />
+								) : (
+									<SpeakerNotesOffIcon aria-label="unread" />
+								)}
+							</IconButton>
 						</CardActions>
 					</Card>
 				</Fade>

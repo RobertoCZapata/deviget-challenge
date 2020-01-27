@@ -3,6 +3,14 @@ import axios from "axios";
 export const FETCH_ITEMS = "FETCH_ITEMS";
 export const FETCH_ITEMS_SUCCESS = "FETCH_ITEMS_SUCCESS";
 export const FETCH_ITEMS_ERROR = "FETCH_ITEMS_ERROR";
+export const DELETE_ITEM = "DELETE_ITEM";
+
+export function deleteItem(itemId) {
+	return {
+		type: DELETE_ITEM,
+		payload: itemId
+	};
+}
 
 export function fetchItems() {
 	return {
@@ -43,5 +51,11 @@ export function getItems() {
 		} catch (error) {
 			dispatch(fetchItemsError(error));
 		}
+	};
+}
+
+export function eraseItem(itemId) {
+	return dispatch => {
+		dispatch(deleteItem(itemId));
 	};
 }
