@@ -14,7 +14,7 @@ import {
 	FETCH_ITEM_ERROR
 } from "../actions/itemDetailActions";
 
-const initialState = {
+export const initialState = {
 	items: [],
 	itemSelected: []
 };

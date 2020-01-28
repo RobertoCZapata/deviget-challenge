@@ -8,10 +8,10 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import MarkunreadIcon from "@material-ui/icons/Markunread";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import CommentIcon from "@material-ui/icons/Comment";
-import SpeakerNotesOffIcon from "@material-ui/icons/SpeakerNotesOff";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Fade from "@material-ui/core/Fade";
 import moment from "moment";
@@ -24,7 +24,7 @@ import { eraseItem } from "../../actions/itemListActions";
 const useStyles = makeStyles(theme => ({
 	card: {
 		maxWidth: 600,
-		marginBottom: "12px"
+		marginBottom: "15px"
 	},
 	media: {
 		height: 0,
@@ -90,16 +90,17 @@ const ItemCard = ({ data = {} }) => {
 						</CardContent>
 						<CardActions>
 							<IconButton aria-label="add comments">
-								<CommentIcon />
+								<CommentIcon /> Comments
 								{data.num_comments}
 							</IconButton>
 							<IconButton aria-label="read unread icon">
 								{data.visited ? (
 									<DoneAllIcon aria-label="read" />
 								) : (
-									<SpeakerNotesOffIcon aria-label="unread" />
+									<MarkunreadIcon aria-label="unread" />
 								)}
 							</IconButton>
+							VISITED
 						</CardActions>
 					</Card>
 				</Fade>
