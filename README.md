@@ -8,3 +8,7 @@ These are all the steps that i did for the project:
 6. to format the date, i use moment.js
 7. to fetch de data, i use Axios.
 8. for the pagination i did lazy loading configuration
+9. text box search is functional
+10. to return to the home page , click on the string "Deviget-Challenge"
+11. to see the item detail, click on the item title.
+12. some actions , reducers and componet are tested whit jest and enzyme
