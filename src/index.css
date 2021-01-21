@@ -1,16 +1,16 @@
 .item-card-container > .MuiPaper-root:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 12px 16px rgba(0, 0, 0, 2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 10px #9b9b9b;
 }
 
 .item-card-container {
-	min-height: 200px;
+  min-height: 200px;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .decoration-link {
-	color: white;
+  color: white;
 }
